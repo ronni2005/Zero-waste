@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Waste Living: From Personal Choice to Global Movement</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f5f0;
+            color: #2d3436;
+            line-height: 1.8;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* ====== DOWNLOAD BTN ====== */
+        .dl-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #1a6b42, #2d8659);
+            color: #fff;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(26,107,66,.45);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            transition: .3s;
+        }
+        .dl-btn:hover { transform: translateY(-3px); }
+        .dl-btn:active { transform: scale(.96); }
+
+        /* ====== MODAL ====== */
+        .modal-bg {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.65);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-bg.show { display: flex; }
+        .modal {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 30px;
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,.25);
+        }
+        .spin-wrap {
+            width: 50px; height: 50px;
+            border: 4px solid #e8f5e9;
+            border-top-color: #1a6b42;
+            border-radius: 50%;
+            animation: sp .8s linear infinite;
+            margin: 0 auto 16px;
+        }
+        .spin-wrap.done {
+            animation: none;
+            border-color: #a8e6cf;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+        @keyframes sp { to { transform: rotate(360deg); } }
+        .m-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #1a6b42; margin-bottom: 6px; }
+        .m-msg { color: #666; font-size: .9rem; margin-bottom: 14px; min-height: 36px; line-height: 1.4; }
+        .bar-bg { background: #e8f5e9; border-radius: 50px; height: 10px; overflow: hidden; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg,#1a6b42,#2d8659,#a8e6cf); border-radius: 50px; width: 0%; transition: width .3s; }
+        .m-pct { margin-top: 8px; font-weight: 700; color: #1a6b42; font-size: 1rem; }
+
+        /* ====== HERO ====== */
+        .hero {
+            background: linear-gradient(135deg, #0a4a2e, #1a6b42 35%, #2d8659 65%, #1b5e3b);
+            padding: 100px 20px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-c { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,.13);
+            color: #a8e6cf;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: .82rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,.1);
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+        .hero h1 em { color: #a8e6cf; font-style: normal; }
+        .hero>p, .hero .hero-c>p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: rgba(255,255,255,.8);
+            max-width: 580px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        .lf { position: absolute; font-size: 3rem; opacity: .06; animation: fl 7s ease-in-out infinite; }
+        .lf1{top:8%;left:4%} .lf2{top:20%;right:5%;animation-delay:2s}
+        .lf3{bottom:10%;left:7%;animation-delay:3.5s} .lf4{bottom:20%;right:3%;animation-delay:1.2s}
+        @keyframes fl{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(10deg)}}
+
+        /* ====== CONTENT ====== */
+        .wrap { max-width: 840px; margin: 0 auto; padding: 0 18px; }
+
+        /* ====== PDF ZONE ====== */
+        #pdfZone { max-width: 840px; margin: 0 auto; padding: 40px 18px 60px; background: #fff; }
+
+        .sec { padding: 8px 0; }
+
+        /* ====== TYPOGRAPHY ====== */
+        #pdfZone h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: #1a3a2a;
+            margin: 36px 0 16px;
+            line-height: 1.3;
+            padding-left: 18px;
+            border-left: 4px solid #2d8659;
+        }
+        #pdfZone h3 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            font-weight: 700;
+            color: #1a6b42;
+            margin: 28px 0 12px;
+        }
+        #pdfZone h4 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+            font-weight: 700;
+            color: #2d6a4f;
+            margin: 22px 0 10px;
+        }
+        #pdfZone p {
+            font-size: clamp(1rem, 2.2vw, 1.12rem);
+            line-height: 1.9;
+            color: #444;
+            margin-bottom: 16px;
+        }
+        #pdfZone strong { color: #1a3a2a; }
+        #pdfZone ol, #pdfZone ul { padding-left: 24px; margin: 12px 0 20px; }
+        #pdfZone li { font-size: clamp(.95rem, 2vw, 1.06rem); color: #444; line-height: 1.85; margin-bottom: 5px; }
+
+        /* ====== META ====== */
+        .meta {
+            text-align: center;
+            padding: 10px 0 24px;
+            border-bottom: 2px solid #e8f5e9;
+            margin-bottom: 24px;
+        }
+        .meta-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .av { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg,#1a6b42,#a8e6cf); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+        .meta .nm { font-weight: 700; color: #1a6b42; font-size: .98rem; }
+        .meta .dt { color: #888; font-size: .84rem; }
+
+        /* ====== IMAGES ====== */
+        .img-box {
+            margin: 26px 0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(0,0,0,.08);
+            position: relative;
+        }
+        .img-box img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .img-box .cap {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,.6));
+            color: #fff;
+            padding: 30px 16px 12px;
+            font-size: .82rem;
+            font-style: italic;
+        }
+        .two-img {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 26px 0;
+        }
+        .two-img .tw {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,.07);
+        }
+        .two-img img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ====== QUOTE ====== */
+        .qt {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-left: 5px solid #2d8659;
+            padding: 28px 24px;
+            margin: 26px 0;
+            border-radius: 0 14px 14px 0;
+            position: relative;
+        }
+        .qt::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: #2d8659;
+            position: absolute;
+            top: -8px; left: 12px;
+            opacity: .2; line-height: 1;
+        }
+        .qt p {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+            font-style: italic;
+            color: #1a3a2a;
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+        .qt cite { font-size: .9rem; color: #2d8659; font-style: normal; font-weight: 700; }
+
+        /* ====== STATS ====== */
+        .sts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 26px 0;
+        }
+        .s-card {
+            background: #f8fdf8;
+            padding: 22px 12px;
+            border-radius: 14px;
+            text-align: center;
+            border: 2px solid #e0f0e0;
+        }
+        .s-card .num {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.4rem);
+            font-weight: 900;
+            color: #1a6b42;
+            display: block;
+        }
+        .s-card .lbl { font-size: clamp(.72rem, 1.8vw, .88rem); color: #666; margin-top: 4px; display: block; }
+
+        /* ====== HIGHLIGHT BOX ====== */
+        .hb {
+            background: linear-gradient(135deg, #1a6b42, #2d8659);
+            color: #fff;
+            padding: 30px 24px;
+            border-radius: 16px;
+            margin: 26px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hb h3 { color: #a8e6cf; font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 14px; }
+        .hb ul { list-style: none; padding: 0; }
+        .hb li {
+            padding: 7px 0;
+            font-size: clamp(.9rem, 2vw, 1.02rem);
+            color: rgba(255,255,255,.9);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.6;
+        }
+        .hb li::before {
+            content: '✓';
+            background: rgba(255,255,255,.15);
+            min-width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .75rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ====== INITIATIVE CARDS ====== */
+        .ig { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 26px 0; }
+        .i-card { background: #f8fdf8; border-radius: 14px; overflow: hidden; border: 2px solid #e0f0e0; }
+        .i-card .icm { height: 150px; overflow: hidden; }
+        .i-card .icm img { width: 100%; height: 100%; object-fit: cover; }
+        .i-card .icc { padding: 16px; }
+        .i-card .icc h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #1a3a2a; margin: 4px 0 6px; }
+        .i-card .icc p { font-size: .9rem; color: #666; line-height: 1.6; margin: 0; }
+        .tag { display: inline-block; background: #d4edda; color: #1a6b42; padding: 2px 10px; border-radius: 14px; font-size: .75rem; font-weight: 700; }
+
+        /* ====== GLOBAL SECTION ====== */
+        .gs {
+            background: #f0fff4;
+            padding: 36px 24px;
+            border-radius: 20px;
+            margin: 30px 0;
+        }
+        .gs-t {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+            font-weight: 700;
+            color: #1a3a2a;
+            text-align: center;
+            margin-bottom: 8px;
+            border: none !important;
+            padding: 0 !important;
+        }
+        .gs-s { text-align: center; font-size: clamp(.9rem, 2vw, 1.05rem); color: #666; max-width: 480px; margin: 0 auto 30px; }
+
+        /* ====== COUNTRY ====== */
+        .ci {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: #f8fdf8;
+            padding: 22px 18px;
+            border-radius: 14px;
+            margin-bottom: 14px;
+            border-left: 4px solid #2d8659;
+        }
+        .ci .fl { font-size: 2.4rem; flex-shrink: 0; line-height: 1; }
+        .ci h4 { font-family: 'Merriweather', serif; font-size: 1.15rem; color: #1a3a2a; margin-bottom: 4px; }
+        .ci p { font-size: .98rem; color: #555; line-height: 1.7; margin: 0; }
+
+        /* ====== TIMELINE ====== */
+        .tl { position: relative; padding: 20px 0; margin: 26px 0; padding-left: 40px; }
+        .tl::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #a8e6cf, #1a6b42); }
+        .tl-item { margin-bottom: 22px; position: relative; }
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -30px; top: 6px;
+            width: 16px; height: 16px;
+            background: #1a6b42;
+            border-radius: 50%;
+            border: 3px solid #a8e6cf;
+        }
+        .tl-box { background: #f8fdf8; padding: 18px; border-radius: 12px; border: 1px solid #e0f0e0; }
+        .tl-yr { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #1a6b42; }
+        .tl-box h4 { font-size: 1rem; color: #1a3a2a; margin: 2px 0 4px; }
+        .tl-box p { font-size: .88rem; color: #666; line-height: 1.6; margin: 0; }
+
+        /* ====== TIPS ====== */
+        .tps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 26px 0; }
+        .tp { background: #f8fdf8; padding: 22px 16px; border-radius: 14px; border-left: 4px solid #2d8659; border: 2px solid #e0f0e0; border-left: 4px solid #2d8659; }
+        .tp .ti { font-size: 2rem; margin-bottom: 8px; }
+        .tp h4 { font-size: 1.05rem; color: #1a3a2a; margin-bottom: 5px; font-family: 'Merriweather', serif; }
+        .tp p { font-size: .92rem; color: #666; line-height: 1.6; margin: 0; }
+
+        /* ====== CTA ====== */
+        .cta-box {
+            background: linear-gradient(135deg, #0a4a2e, #1a6b42);
+            padding: 48px 28px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 36px 0;
+        }
+        .cta-box h2 {
+            color: #fff !important;
+            border: none !important;
+            padding: 0 !important;
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+        }
+        .cta-box p { color: rgba(255,255,255,.8); font-size: 1.05rem; max-width: 460px; margin: 10px auto 24px; text-align: center; }
+        .cta-link {
+            display: inline-block;
+            background: #a8e6cf;
+            color: #0a4a2e;
+            padding: 12px 34px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ====== PDF FOOTER ====== */
+        .pdf-ft { text-align: center; padding: 24px 0 6px; border-top: 2px solid #e8f5e9; margin-top: 30px; color: #888; font-size: .85rem; }
+
+        /* ====== WEB FOOTER ====== */
+        .foot {
+            background: #0a2e1a;
+            color: rgba(255,255,255,.6);
+            padding: 44px 18px 24px;
+            text-align: center;
+        }
+        .foot h3 { font-family: 'Playfair Display', serif; color: #a8e6cf; font-size: 1.5rem; margin-bottom: 10px; }
+        .foot p { font-size: .9rem; line-height: 1.7; margin-bottom: 16px; }
+        .foot-ln { width: 50px; height: 3px; background: #2d8659; margin: 18px auto; }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 600px) {
+            .hero { padding: 80px 16px 50px; min-height: 50vh; }
+            .sts { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+            .s-card { padding: 16px 8px; }
+            .ig { grid-template-columns: 1fr; }
+            .tps { grid-template-columns: 1fr; }
+            .two-img { grid-template-columns: 1fr; }
+            .two-img img { height: 180px; }
+            .ci { flex-direction: row; }
+            .ci .fl { font-size: 2rem; }
+            .gs { padding: 26px 16px; }
+            .dl-btn { bottom: 14px; right: 14px; padding: 12px 18px; font-size: .92rem; }
+            .img-box img { max-height: 250px; }
+            .i-card .icm { height: 120px; }
+        }
+
+        @media (max-width: 380px) {
+            .sts { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ====== PROGRESS MODAL ====== -->
+<div class="modal-bg" id="modal">
+    <div class="modal">
+        <div class="spin-wrap" id="spinner"></div>
+        <div class="m-title" id="mt">Generating PDF…</div>
+        <div class="m-msg" id="mm">Preparing your document…</div>
+        <div class="bar-bg"><div class="bar-fill" id="bf"></div></div>
+        <div class="m-pct" id="mp">0%</div>
+    </div>
+</div>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+    <span class="lf lf1">🍃</span><span class="lf lf2">🌿</span>
+    <span class="lf lf3">🍂</span><span class="lf lf4">🌱</span>
+    <div class="hero-c">
+        <div class="badge">🌍 Sustainability Blog</div>
+        <h1>Zero Waste Living: From <em>Personal Choice</em> to Global Movement</h1>
+        <p>How individual actions merge with global initiatives to create a world without waste.</p>
+    </div>
+</section>
+
+<!-- ====== DOWNLOAD ====== -->
+<button class="dl-btn" id="dlBtn" onclick="makePDF()">📥 Download PDF</button>
+
+<!-- ============================================================ -->
+<!-- ==================== PDF CONTENT ZONE ====================== -->
+<!-- ============================================================ -->
+<div id="pdfZone">
+
+<!-- TITLE -->
+<div class="sec">
+    <div style="text-align:center;padding:20px 0 16px">
+        <div style="font-size:1.8rem;margin-bottom:8px">🌿</div>
+        <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.4rem);font-weight:900;color:#1a3a2a;line-height:1.2;margin-bottom:8px">Zero Waste Living:<br>From Personal Choice to Global Movement</h1>
+    </div>
+    <div class="meta">
+        <div class="meta-row">
+            <div class="av">🌱</div>
+            <div>
+                <div class="nm">EcoLiving Editorial</div>
+                <div class="dt">June 20, 2025 · 18 min read</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- IMAGE 1 -->
+<div class="sec">
+    <div class="img-box">
+        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=900&h=400&fit=crop&q=80" alt="Zero waste lifestyle" crossorigin="anonymous">
+        <div class="cap">A zero-waste kitchen — every item has a purpose, nothing goes to landfill</div>
+    </div>
+</div>
+
+<!-- INTRO -->
+<div class="sec">
+    <h2>Introduction: Why Zero Waste Matters Now</h2>
+    <p>Every year, the world generates approximately <strong>2.01 billion tonnes of municipal solid waste</strong>. If current trends continue, this number is expected to rise to <strong>3.4 billion tonnes by 2050</strong>. Behind these staggering figures lie overflowing landfills, polluted oceans, contaminated groundwater, and ecosystems pushed to the brink.</p>
+    <p>The zero waste movement offers a radical yet practical alternative. It's not about perfection — it's about conscious choices. What began as an individual lifestyle choice has now grown into a <strong>global movement</strong>, with cities, corporations, and nations adopting zero waste principles.</p>
+</div>
+
+<!-- STATS -->
+<div class="sec">
+    <div class="sts">
+        <div class="s-card"><span class="num">2.01B</span><span class="lbl">Tonnes waste/year</span></div>
+        <div class="s-card"><span class="num">8M+</span><span class="lbl">Tonnes plastic in oceans</span></div>
+        <div class="s-card"><span class="num">91%</span><span class="lbl">Plastic never recycled</span></div>
+    </div>
+</div>
+
+<!-- UNDERSTANDING -->
+<div class="sec">
+    <h2>Understanding Zero Waste: The 5 R's</h2>
+    <p>Zero waste goes far beyond recycling. The <strong>Zero Waste International Alliance</strong> defines it as responsible production, consumption, reuse, and recovery without discharges threatening the environment.</p>
+</div>
+
+<!-- QUOTE 1 -->
+<div class="sec">
+    <div class="qt">
+        <p>"The conservation of all resources by means of responsible production, consumption, reuse, and recovery of products, packaging, and materials without burning and with no discharges to land, water, or air that threaten the environment or human health."</p>
+        <cite>— Zero Waste International Alliance</cite>
+    </div>
+</div>
+
+<!-- 5Rs -->
+<div class="sec">
+    <h3>The 5 R's Hierarchy</h3>
+    <ol>
+        <li><strong>Refuse</strong> — Say no to what you don't need. Decline single-use plastics and excessive packaging.</li>
+        <li><strong>Reduce</strong> — Minimize consumption. Buy less, choose quality over quantity.</li>
+        <li><strong>Reuse</strong> — Cloth bags, metal straws, refillable bottles — choose reusable alternatives.</li>
+        <li><strong>Recycle</strong> — When you must dispose, recycle properly and responsibly.</li>
+        <li><strong>Rot</strong> — Compost organic waste to return nutrients to the earth.</li>
+    </ol>
+</div>
+
+<!-- IMAGE 2 -->
+<div class="sec">
+    <div class="img-box">
+        <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?w=900&h=400&fit=crop&q=80" alt="5 Rs" crossorigin="anonymous">
+        <div class="cap">The 5 R's — foundation of zero waste philosophy</div>
+    </div>
+</div>
+
+<!-- JOURNEY -->
+<div class="sec">
+    <h2>The Journey: Personal to Political</h2>
+    <p>Pioneers like <strong>Bea Johnson</strong> showed a family of four could reduce annual waste to a single jar. What began in homes spread to communities — composting programs, repair cafes, swap meets, and bulk stores.</p>
+    <p>Today, <strong>governments and corporations</strong> recognize the "take-make-dispose" model is unsustainable. The <strong>circular economy</strong> — where waste is designed out — is now a global priority.</p>
+</div>
+
+<!-- TWO IMAGES -->
+<div class="sec">
+    <div class="two-img">
+        <div class="tw"><img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&h=350&fit=crop&q=80" alt="Composting" crossorigin="anonymous"></div>
+        <div class="tw"><img src="https://images.unsplash.com/photo-1604187351574-c75ca79f5807?w=500&h=350&fit=crop&q=80" alt="Bulk shopping" crossorigin="anonymous"></div>
+    </div>
+</div>
+
+<!-- ====== GLOBAL INITIATIVES ====== -->
+<div class="sec">
+    <div class="gs">
+        <h2 class="gs-t">🌍 Global Initiatives Towards Zero Waste</h2>
+        <p class="gs-s">Nations, cities, and organizations leading the charge towards a waste-free future.</p>
+    </div>
+</div>
+
+<!-- CARDS ROW 1 -->
+<div class="sec">
+    <div class="ig">
+        <div class="i-card">
+            <div class="icm"><img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&h=250&fit=crop&q=80" alt="EU" crossorigin="anonymous"></div>
+            <div class="icc"><span class="tag">🇪🇺 EU</span><h4>Circular Economy Plan</h4><p>All packaging recyclable by 2030. Bans single-use plastics across member states.</p></div>
+        </div>
+        <div class="i-card">
+            <div class="icm"><img src="https://images.unsplash.com/photo-1480796927426-f609979314bd?w=500&h=250&fit=crop&q=80" alt="Japan" crossorigin="anonymous"></div>
+            <div class="icc"><span class="tag">🇯🇵 Japan</span><h4>Kamikatsu Zero Waste</h4><p>45 waste categories, 80% recycling rate. A global model for communities.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- CARDS ROW 2 -->
+<div class="sec">
+    <div class="ig">
+        <div class="i-card">
+            <div class="icm"><img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=500&h=250&fit=crop&q=80" alt="India" crossorigin="anonymous"></div>
+            <div class="icc"><span class="tag">🇮🇳 India</span><h4>Swachh Bharat Mission</h4><p>Banned single-use plastics nationwide in 2022 — most comprehensive ban globally.</p></div>
+        </div>
+        <div class="i-card">
+            <div class="icm"><img src="https://images.unsplash.com/photo-1559827291-bae8c20a4a51?w=500&h=250&fit=crop&q=80" alt="Rwanda" crossorigin="anonymous"></div>
+            <div class="icc"><span class="tag">🇷🇼 Rwanda</span><h4>Plastic Ban Pioneer</h4><p>Banned bags in 2008. Monthly "Umuganda" clean-ups made sustainability cultural.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- COUNTRIES HEADER -->
+<div class="sec">
+    <h2 style="text-align:center;border:none;padding:0">🏆 Leading Zero Waste Nations</h2>
+</div>
+
+<!-- SWEDEN & KOREA -->
+<div class="sec">
+    <div class="ci">
+        <div class="fl">🇸🇪</div>
+        <div><h4>Sweden — Recycling Revolution</h4><p>Recycles <strong>99% of household waste</strong>. Imports waste for energy. "Pant" bottle returns hit 90%+ rate.</p></div>
+    </div>
+    <div class="ci">
+        <div class="fl">🇰🇷</div>
+        <div><h4>South Korea — Pay-As-You-Throw</h4><p><strong>Reduced food waste 30%</strong> via volume-based fees. Food waste becomes compost & biogas. 60%+ recycling rate.</p></div>
+    </div>
+</div>
+
+<!-- SINGAPORE & KENYA -->
+<div class="sec">
+    <div class="ci">
+        <div class="fl">🇸🇬</div>
+        <div><h4>Singapore — Zero Waste Masterplan</h4><p>Reduce landfill <strong>30% by 2030</strong>. World's first integrated waste-water facility. AI-powered sorting.</p></div>
+    </div>
+    <div class="ci">
+        <div class="fl">🇰🇪</div>
+        <div><h4>Kenya — Strictest Plastic Ban</h4><p><strong>$38,000 fines or 4 years prison</strong> for plastic bags since 2017. Dramatically cut waterway pollution.</p></div>
+    </div>
+</div>
+
+<!-- NZ & CANADA -->
+<div class="sec">
+    <div class="ci">
+        <div class="fl">🇳🇿</div>
+        <div><h4>New Zealand — Zero Waste by 2040</h4><p>Nationwide plastic bag ban. Phasing out hard-to-recycle plastics. Community recycling centres expanding.</p></div>
+    </div>
+    <div class="ci">
+        <div class="fl">🇨🇦</div>
+        <div><h4>Canada — Zero Plastic by 2030</h4><p>Banned 6 categories of single-use plastics. Vancouver targeting zero waste by 2040.</p></div>
+    </div>
+</div>
+
+<!-- INTL ORGS -->
+<div class="sec">
+    <h2>International Organizations</h2>
+    <div class="img-box">
+        <img src="https://images.unsplash.com/photo-1569163139599-0f4517e36f51?w=900&h=400&fit=crop&q=80" alt="UN sustainability" crossorigin="anonymous">
+        <div class="cap">International cooperation is essential for global zero waste targets</div>
+    </div>
+</div>
+
+<div class="sec">
+    <h3>🇺🇳 United Nations (UNEP)</h3>
+    <p><strong>Global Plastics Treaty</strong> — legally binding agreement to end plastic pollution. 170+ nations participating. Most significant treaty since Paris Agreement.</p>
+    <h3>🔄 Ellen MacArthur Foundation</h3>
+    <p><strong>500+ organizations</strong> committed (20% of global plastic packaging). Unilever, Nestlé, Coca-Cola signed the Global Commitment.</p>
+    <h3>📊 World Economic Forum</h3>
+    <p>Circular economy = <strong>$4.5 trillion opportunity by 2030</strong>. PACE platform unites governments, businesses, and civil society globally.</p>
+</div>
+
+<!-- MILESTONES -->
+<div class="sec">
+    <div class="hb">
+        <h3>Key Global Milestones</h3>
+        <ul>
+            <li>2015: UN SDGs include responsible consumption (SDG 12)</li>
+            <li>2018: EU Single-Use Plastics Directive adopted</li>
+            <li>2019: Basel Convention controls plastic waste trade</li>
+            <li>2022: UN launches Global Plastics Treaty negotiations</li>
+            <li>2023: 100+ countries have plastic ban or tax</li>
+            <li>2024: Extended Producer Responsibility expands globally</li>
+            <li>2025: Target — reduce food waste by 50% (SDG 12.3)</li>
+        </ul>
+    </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="sec">
+    <h2>Timeline: Movement's Evolution</h2>
+    <div class="tl">
+        <div class="tl-item"><div class="tl-box"><div class="tl-yr">2002</div><h4>Canberra Declaration</h4><p>First major international zero waste declaration.</p></div></div>
+        <div class="tl-item"><div class="tl-box"><div class="tl-yr">2008</div><h4>Rwanda Leads Africa</h4><p>One of the first nations to ban plastic bags entirely.</p></div></div>
+        <div class="tl-item"><div class="tl-box"><div class="tl-yr">2013</div><h4>Zero Waste Home</h4><p>Bea Johnson's book sparks worldwide movement.</p></div></div>
+        <div class="tl-item"><div class="tl-box"><div class="tl-yr">2018</div><h4>EU Plastic Directive</h4><p>EU bans top ocean-polluting single-use items.</p></div></div>
+        <div class="tl-item"><div class="tl-box"><div class="tl-yr">2022</div><h4>Global Plastics Treaty</h4><p>UN agrees to develop legally binding treaty.</p></div></div>
+        <div class="tl-item"><div class="tl-box"><div class="tl-yr">2025</div><h4>500+ Cities Committed</h4><p>Circular economy goes mainstream globally.</p></div></div>
+    </div>
+</div>
+
+<!-- CORPORATE -->
+<div class="sec">
+    <h2>Corporate Responsibility</h2>
+    <div class="img-box">
+        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=900&h=400&fit=crop&q=80" alt="Business" crossorigin="anonymous">
+        <div class="cap">Businesses embracing zero waste as environmental & economic imperative</div>
+    </div>
+</div>
+
+<div class="sec">
+    <h4>🏢 Unilever</h4>
+    <p><strong>Halving virgin plastic by 2025.</strong> 100% packaging recyclable/reusable/compostable. Heavy investment in refill stations.</p>
+    <h4>🏠 IKEA</h4>
+    <p><strong>Fully circular by 2030.</strong> Furniture take-back, products designed for disassembly, renewable/recycled materials.</p>
+    <h4>🧥 Patagonia</h4>
+    <p><strong>Lifetime repairs</strong> on all products. Worn Wear marketplace. 87% recycled materials across product line.</p>
+</div>
+
+<!-- TIPS -->
+<div class="sec">
+    <h2>🌱 Practical Tips: Start Your Journey</h2>
+    <p>Start small, be consistent — <strong>every action counts</strong>:</p>
+</div>
+
+<div class="sec">
+    <div class="tps">
+        <div class="tp"><div class="ti">🛒</div><h4>Shopping</h4><p>Reusable bags & containers. Bulk stores. Minimal packaging. Shopping lists.</p></div>
+        <div class="tp"><div class="ti">🍳</div><h4>Kitchen</h4><p>Compost scraps. Meal plan. Beeswax wraps. Proper food storage.</p></div>
+    </div>
+</div>
+
+<div class="sec">
+    <div class="tps">
+        <div class="tp"><div class="ti">🚿</div><h4>Bathroom</h4><p>Bar soap/shampoo. Bamboo toothbrush. Reusable pads. Safety razors.</p></div>
+        <div class="tp"><div class="ti">👔</div><h4>Fashion</h4><p>Second-hand. Quality > quantity. Learn repairs. Clothing swaps.</p></div>
+    </div>
+</div>
+
+<div class="sec">
+    <div class="tps">
+        <div class="tp"><div class="ti">🏠</div><h4>Home & Office</h4><p>Go paperless. Rechargeable batteries. Repair first. Donate unused.</p></div>
+        <div class="tp"><div class="ti">🎉</div><h4>Events</h4><p>Real cutlery. Digital invites. Gift experiences. Fabric wraps.</p></div>
+    </div>
+</div>
+
+<div class="sec">
+    <div class="img-box">
+        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0eb7?w=900&h=400&fit=crop&q=80" alt="Sustainable essentials" crossorigin="anonymous">
+        <div class="cap">Simple swaps dramatically reduce your daily waste footprint</div>
+    </div>
+</div>
+
+<!-- ECONOMICS -->
+<div class="sec">
+    <h2>The Economic Case</h2>
+    <ul>
+        <li><strong>Household:</strong> Save $5,000–$10,000/year</li>
+        <li><strong>Municipal:</strong> Reduce waste costs 20–50%</li>
+        <li><strong>Business:</strong> 15–30% cost reduction via circular economy</li>
+        <li><strong>Jobs:</strong> 10–20x more than landfilling</li>
+        <li><strong>Global:</strong> $4.5T opportunity by 2030</li>
+    </ul>
+</div>
+
+<div class="sec">
+    <div class="sts">
+        <div class="s-card"><span class="num">$4.5T</span><span class="lbl">Circular value 2030</span></div>
+        <div class="s-card"><span class="num">10-20x</span><span class="lbl">More jobs</span></div>
+        <div class="s-card"><span class="num">50%</span><span class="lbl">Cost cut possible</span></div>
+    </div>
+</div>
+
+<!-- FUTURE -->
+<div class="sec">
+    <h2>The Future: What's Next?</h2>
+    <div class="img-box">
+        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=900&h=400&fit=crop&q=80" alt="Future" crossorigin="anonymous">
+        <div class="cap">Smart cities, innovation, and collective action shape the future</div>
+    </div>
+</div>
+
+<div class="sec">
+    <p><strong>🤖 AI Waste Management:</strong> Smart bins with 95%+ accuracy. AI-optimized collection routes.</p>
+    <p><strong>🌿 Bio Innovation:</strong> Seaweed, mycelium, and agri-waste materials replacing plastics.</p>
+    <p><strong>🤝 Sharing Economy:</strong> Tool libraries, clothing rental — reducing ownership needs.</p>
+    <p><strong>🧑‍🎓 Youth Leadership:</strong> Gen Z driving sustainability as the norm, not the exception.</p>
+</div>
+
+<!-- CTA -->
+<div class="sec">
+    <div class="cta-box">
+        <h2>Join the Movement Today</h2>
+        <p>Every piece of waste you prevent matters. Every choice inspires others. Start with one step.</p>
+        <a href="#" class="cta-link">Start Your Journey →</a>
+    </div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="sec">
+    <h2>Conclusion: From Me to We</h2>
+    <p>From <strong>Sweden's 99% recovery</strong> to <strong>Kenya's strict ban</strong>, from <strong>Japan's 45-category sorting</strong> to the <strong>UN's Plastics Treaty</strong> — the world is transforming.</p>
+    <p>The most powerful message: <strong>you matter</strong>. You don't need to be perfect. You just need to start. Progress, not perfection.</p>
+</div>
+
+<div class="sec">
+    <div class="qt">
+        <p>We don't need a handful of people doing zero waste perfectly. We need millions doing it imperfectly.</p>
+        <cite>— Anne-Marie Bonneau, Zero Waste Chef</cite>
+    </div>
+</div>
+
+<div class="sec">
+    <div class="two-img">
+        <div class="tw"><img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=500&h=350&fit=crop&q=80" alt="Green" crossorigin="anonymous"></div>
+        <div class="tw"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=350&fit=crop&q=80" alt="Forest" crossorigin="anonymous"></div>
+    </div>
+</div>
+
+<div class="sec">
+    <div class="pdf-ft">
+        <p>🌿 <strong>EcoLiving Blog</strong> · © 2025 · Written with 💚 for our planet</p>
+    </div>
+</div>
+
+</div><!-- pdfZone END -->
+
+<!-- WEB FOOTER -->
+<footer class="foot">
+    <h3>🌿 EcoLiving Blog</h3>
+    <p>Inspiring sustainable living through stories, science, and solutions.</p>
+    <div class="foot-ln"></div>
+    <p>© 2025 EcoLiving · Written with 💚</p>
+</footer>
+
+<!-- ====== SCRIPTS ====== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+// Scroll effect (only nav on web)
+window.addEventListener('scroll', () => {
+    // minimal - no nav needed for clean mobile
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+});
+
+// ============ SECTION-WISE PDF ============
+async function makePDF() {
+    const modal = document.getElementById('modal');
+    const bf = document.getElementById('bf');
+    const mm = document.getElementById('mm');
+    const mp = document.getElementById('mp');
+    const mt = document.getElementById('mt');
+    const spinner = document.getElementById('spinner');
+
+    function pg(p, m) {
+        bf.style.width = p + '%';
+        mp.textContent = p + '%';
+        if (m) mm.textContent = m;
+    }
+
+    modal.classList.add('show');
+    pg(2, 'Starting...');
+
+    // Hide button
+    document.getElementById('dlBtn').style.display = 'none';
+
+    await delay(200);
+    pg(5, 'Loading images...');
+
+    // Load all images
+    const imgs = [...document.querySelectorAll('#pdfZone img')];
+    await Promise.all(imgs.map(img =>
+        img.complete ? Promise.resolve() :
+        new Promise(r => { img.onload = img.onerror = r; setTimeout(r, 10000); })
+    ));
+
+    pg(10, 'Images loaded. Preparing...');
+
+    // Make everything visible
+    document.querySelectorAll('#pdfZone *').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.style.transition = 'none';
+    });
+
+    await delay(300);
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const PW = pdf.internal.pageSize.getWidth();   // 210
+    const PH = pdf.internal.pageSize.getHeight();  // 297
+    const M = 8; // margin
+    const UW = PW - M * 2; // usable width
+    const UH = PH - M * 2 - 8; // usable height (leave space for footer)
+
+    const sections = [...document.querySelectorAll('#pdfZone .sec')];
+    let curY = M;
+    let pageNum = 1;
+    let totalSections = sections.length;
+
+    for (let i = 0; i < totalSections; i++) {
+        const pct = 10 + Math.round((i / totalSections) * 82);
+        pg(pct, `Section ${i + 1} / ${totalSections}`);
+
+        const sec = sections[i];
+
+        // Capture section
+        let canvas;
+        try {
+            canvas = await html2canvas(sec, {
+                scale: 2.5,
+                useCORS: true,
+                allowTaint: true,
+                logging: false,
+                backgroundColor: '#ffffff',
+                windowWidth: 840
+            });
+        } catch (e) {
+            console.warn('Skip section', i, e);
+            continue;
+        }
+
+        if (!canvas || canvas.height === 0) continue;
+
+        const cW = canvas.width;
+        const cH = canvas.height;
+        const ratio = UW / cW;
+        const renderH = cH * ratio;
+
+        // CASE 1: Section fits on current page
+        if (renderH <= (PH - M - 8 - curY)) {
+            const imgData = canvas.toDataURL('image/jpeg', 0.92);
+            pdf.addImage(imgData, 'JPEG', M, curY, UW, renderH);
+            curY += renderH + 2;
+        }
+        // CASE 2: Section fits on a FRESH page (not too tall)
+        else if (renderH <= UH) {
+            addFooter(pdf, PW, PH, pageNum);
+            pdf.addPage();
+            pageNum++;
+            curY = M;
+            const imgData = canvas.toDataURL('image/jpeg', 0.92);
+            pdf.addImage(imgData, 'JPEG', M, curY, UW, renderH);
+            curY += renderH + 2;
+        }
+        // CASE 3: Section is TALLER than one page — must split
+        else {
+            // Start on new page if we have content
+            if (curY > M + 5) {
+                addFooter(pdf, PW, PH, pageNum);
+                pdf.addPage();
+                pageNum++;
+                curY = M;
+            }
+
+            const sliceHPx = Math.floor(UH / ratio);
+            let srcY = 0;
+
+            while (srcY < cH) {
+                if (srcY > 0) {
+                    addFooter(pdf, PW, PH, pageNum);
+                    pdf.addPage();
+                    pageNum++;
+                    curY = M;
+                }
+
+                const thisSlice = Math.min(sliceHPx, cH - srcY);
+                const tmpCanvas = document.createElement('canvas');
+                tmpCanvas.width = cW;
+                tmpCanvas.height = thisSlice;
+                const ctx = tmpCanvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, cW, thisSlice);
+                ctx.drawImage(canvas, 0, srcY, cW, thisSlice, 0, 0, cW, thisSlice);
+
+                const sliceData = tmpCanvas.toDataURL('image/jpeg', 0.92);
+                const sliceRenderH = thisSlice * ratio;
+                pdf.addImage(sliceData, 'JPEG', M, curY, UW, sliceRenderH);
+                curY += sliceRenderH + 2;
+                srcY += thisSlice;
+            }
+        }
+
+        await delay(30);
+    }
+
+    // Final footer
+    addFooter(pdf, PW, PH, pageNum);
+
+    pg(96, 'Saving PDF...');
+    await delay(300);
+
+    pdf.save('Zero-Waste-Living-Blog.pdf');
+
+    // Success state
+    spinner.classList.add('done');
+    spinner.innerHTML = '✅';
+    mt.textContent = 'Download Complete!';
+    pg(100, 'PDF saved successfully!');
+    await delay(2000);
+
+    // Reset
+    document.getElementById('dlBtn').style.display = 'flex';
+    modal.classList.remove('show');
+    spinner.classList.remove('done');
+    spinner.innerHTML = '';
+    mt.textContent = 'Generating PDF…';
+    pg(0, 'Preparing...');
+}
+
+function addFooter(pdf, w, h, num) {
+    pdf.setFontSize(7);
+    pdf.setTextColor(180, 180, 180);
+    pdf.text('Zero Waste Living — EcoLiving Blog  |  Page ' + num, w / 2, h - 4, { align: 'center' });
+    pdf.setDrawColor(220, 235, 220);
+    pdf.line(10, h - 8, w - 10, h - 8);
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+
+</body>
+</html>
